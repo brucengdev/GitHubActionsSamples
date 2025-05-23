@@ -13,4 +13,5 @@ jobs:
         uses: ./.github/workflows/workflow-b.yml
 
     workflow-c:
+        needs: workflow-b
         uses: ./.github/workflows/workflow-c.yml
