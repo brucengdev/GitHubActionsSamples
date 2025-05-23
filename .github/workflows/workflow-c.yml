@@ -1,0 +1,10 @@
+on:
+    workflow_call:
+
+
+jobs:
+    print-something:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print something
+              run: echo "This is workflow C"

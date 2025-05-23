@@ -1,0 +1,7 @@
+on:
+    workflow_dispatch:
+
+
+jobs:
+    workflow-b:
+        uses: ./.github/workflows/workflow-b.yml
