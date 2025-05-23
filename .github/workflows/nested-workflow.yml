@@ -3,7 +3,7 @@ on:
 
 
 jobs:
-    introduce:
+    introduce-nested-wf:
         runs-on: ubuntu-latest
         steps:
             - name: Introduce nested-workflow

@@ -3,7 +3,7 @@ on:
 
 
 jobs:
-    introduce:
+    introduce-wf-b:
         runs-on: ubuntu-latest
         steps:
             - name: Introduce workflow B
