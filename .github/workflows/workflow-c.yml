@@ -3,8 +3,8 @@ on:
 
 
 jobs:
-    print-something:
+    Introduce:
         runs-on: ubuntu-latest
         steps:
-            - name: Print something
+            - name: Introduce workflow C
               run: echo "This is workflow C"

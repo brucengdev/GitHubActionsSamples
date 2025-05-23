@@ -3,5 +3,11 @@ on:
 
 
 jobs:
+    introduce:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Introduce nested-workflow
+              run: echo "This demonstrates how to call nested workflows"
+
     workflow-b:
         uses: ./.github/workflows/workflow-b.yml

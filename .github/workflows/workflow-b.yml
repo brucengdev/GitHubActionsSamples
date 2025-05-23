@@ -3,5 +3,11 @@ on:
 
 
 jobs:
+    introduce:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Introduce workflow B
+              run: echo "This is workflow B"
+
     workflow-c:
         uses: ./.github/workflows/workflow-c.yml
