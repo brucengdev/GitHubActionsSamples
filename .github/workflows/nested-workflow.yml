@@ -11,3 +11,6 @@ jobs:
 
     workflow-b:
         uses: ./.github/workflows/workflow-b.yml
+
+    workflow-c:
+        uses: ./.github/workflows/workflow-c.yml
