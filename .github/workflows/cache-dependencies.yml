@@ -1,0 +1,20 @@
+name: Example of caching deps
+on:
+    workflow_dispatch:
+
+jobs:
+    example-job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Cache node modules
+              uses: actions/cache@v4
+              env:
+                cache-name: cache-node-modules
+              with:
+                # what files to cache?
+                path: ~/.npm
+                # cache key?
+                key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                # what?
+                restore-keys: |
+                  ${{ runner.os }}-build-${{ env.cache-name }}-
