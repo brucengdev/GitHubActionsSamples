@@ -13,3 +13,8 @@ jobs:
         needs: Job-A
         steps:
             - run: echo "This is job B which is dependent on Job A"
+
+    Job-C:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "This is job C which is not dependent on any job, so it can run in parallel"
