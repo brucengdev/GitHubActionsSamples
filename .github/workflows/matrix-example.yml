@@ -1,0 +1,17 @@
+name: Matrix example
+on:
+    workflow_dispatch:
+
+jobs:
+    AJob:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [14, 16, 18]
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                node-version: '{{matix.node-version}}'
+            
+            - name: Check Node.js version
+              run: node -v
