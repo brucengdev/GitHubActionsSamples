@@ -1,0 +1,15 @@
+name: Dependent job example
+on:
+    workflow_dispatch:
+
+jobs:
+    Job-A:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "This is job A"
+
+    Job-B:
+        runs-on: ubuntu-latest
+        needs: Job-A
+        steps:
+            - run: echo "This is job B which is dependent on Job A"
