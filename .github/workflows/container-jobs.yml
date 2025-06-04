@@ -1,0 +1,23 @@
+name: Example of container jobs
+on:
+    workflow_dispatch:
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+    # run the steps inside container with image node:20-bookworm-slim
+    container: node:20-bookworm-slim
+    # create a container for PostgreSQL database
+    # the node container can connect to it.
+    services:
+      postgres:
+        image: postgres
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm i
+      - name: Connect to PostgreSQL
+        run: node client.js
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432

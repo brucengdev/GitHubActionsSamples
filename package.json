@@ -1,0 +1,19 @@
+{
+  "name": "githubactionssamples",
+  "version": "1.0.0",
+  "description": "for testing and practicing github actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brucengdev/GitHubActionsSamples.git"
+  },
+  "author": "brucengdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brucengdev/GitHubActionsSamples/issues"
+  },
+  "homepage": "https://github.com/brucengdev/GitHubActionsSamples#readme"
+}
