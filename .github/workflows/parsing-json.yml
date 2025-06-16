@@ -46,19 +46,22 @@ jobs:
                 declare -p monitor_states 2>/dev/null || echo "Not a declared variable - likely a string"
                 echo "Is it an array? ${monitor_states[@]}"
                 echo "Length if array: ${#monitor_states[@]}"
-                # monitors_state=${monitors_state:1}  # Remove leading '['
-                # monitors_state=${monitors_state%?}  # Remove trailing ']'
-                # echo "Removed brackets:"
-                # echo $monitors_state
-                for monitor_state in ${monitors_state[@]}; do
-                    echo "Monitor state: $monitor_state"
+                # Remove the outer brackets and split by pipe character
+                monitor_states="${monitor_states#[}"  # Remove leading '['
+                monitor_states="${monitor_states%]}"  # Remove trailing ']'
+                echo "Removed brackets:"
+                echo "$monitor_states"
+
+                # Split by pipe and process each monitor state
+                IFS='|' read -ra monitor_array <<< "$monitor_states"
+                echo "Number of monitors: ${#monitor_array[@]}"
+                for monitor in "${monitor_array[@]}"; do
+                  echo "---"
+                  echo "Monitor data: $monitor"
+                  status=$(echo $monitor | tr "*" "f" | jq .state.groups.f.status)
+                  name=$(echo "$monitor" | jq -r '.name')
+                  id=$(echo "$monitor" | jq -r '.id')
+                  echo "Name: $name"
+                  echo "ID: $id"
+                  echo "Status: $status"
                 done
-                # IFS='|' read -ra parsed <<< "$monitor_states"
-                # for monitor_state in "${parsed[@]}";do
-                #     status=$(echo $monitor_state | tr "*" "f" | jq .state.groups.f.status)
-                #     name=$(echo $monitor_state | jq .name)
-                #     id=$(echo $monitor_state | jq .id)
-                #     echo "- name: $name, status: $status"
-                #     echo "-- id: $id"   >> $GITHUB_STEP_SUMMARY
-                # done
-        
