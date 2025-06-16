@@ -36,6 +36,9 @@ jobs:
             - name: Print state
               run: |
                 monitor_states="${{needs.prep-json.outputs.ddState}}"
+                echo "Input:"
+                echo $monitor_states
+                echo "Parsing..."
                 IFS='|' read -ra parsed <<< "$monitor_states"
                 for monitor_state in "${parsed[@]}";do
                     status=$(echo $monitor_state | tr "*" "f" | jq .state.groups.f.status)
