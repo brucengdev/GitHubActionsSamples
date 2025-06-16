@@ -40,6 +40,12 @@ jobs:
                 echo "Input:"
                 echo $monitor_states
                 echo "Parsing..."
+                # Print the type of monitor_states
+                echo "Type information for monitor_states:"
+                echo "Raw value: $monitor_states"
+                declare -p monitor_states 2>/dev/null || echo "Not a declared variable - likely a string"
+                echo "Is it an array? ${monitor_states[@]}"
+                echo "Length if array: ${#monitor_states[@]}"
                 # monitors_state=${monitors_state:1}  # Remove leading '['
                 # monitors_state=${monitors_state%?}  # Remove trailing ']'
                 # echo "Removed brackets:"
