@@ -36,7 +36,7 @@ jobs:
             - name: Print state
               run: |
                 echo "foo"
-                # monitor_states=${{needs.prep-json.outputs.ddState}}
+                monitor_states=${{needs.prep-json.outputs.ddState}}
                 # echo "Input:"
                 # echo $monitor_states
                 # echo "Parsing..."
