@@ -42,6 +42,8 @@ jobs:
                 echo "Parsing..."
                 monitors_state=${monitors_state:1}  # Remove leading '['
                 monitors_state=${monitors_state%?}  # Remove trailing ']'
+                echo "Removed brackets:"
+                echo $monitors_state
                 IFS='|' read -ra parsed <<< "$monitor_states"
                 for monitor_state in "${parsed[@]}";do
                     status=$(echo $monitor_state | tr "*" "f" | jq .state.groups.f.status)
