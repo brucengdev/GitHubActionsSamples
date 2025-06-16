@@ -1,0 +1,16 @@
+name: Example with parameters
+on: 
+    workflow_dispatch: 
+        inputs:
+            valA:
+                description: 'Value A'
+                required: false
+            valB:
+                description: 'Value B'
+                required: false
+
+jobs:
+    call-another-workflow:
+        uses: ./.github/workflows/print-value.yml
+        with:
+            text: ${{ inputs.valA || inputs.valB }}

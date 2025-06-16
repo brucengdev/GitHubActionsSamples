@@ -1,0 +1,15 @@
+name: Print value
+on:
+    workflow_call:
+        inputs:
+            text:
+                description: 'Text to print'
+                required: true
+                type: string
+jobs:
+    print-value:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print value
+              run: |
+                echo "The value is: ${{ inputs.text }}"
