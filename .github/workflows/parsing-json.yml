@@ -1,15 +1,8 @@
 name: Example with handling Json
 on:
-    workflow_dispatch:
-      inputs:
-        jsonInput:
-          description: 'JSON input'
-          required: true
-          default: '{"key1": "value1", "key2": "value2"}'
-        ids:
-          description: 'Ids'
-          required: true
-          default: '["id1", "id2", "id3"]'
+  push:
+    branches:
+      - main
 
 jobs:
     prep-json:
@@ -20,12 +13,13 @@ jobs:
             - name: Parse JSON input
               id: parse_json
               run: |
-                json_result=${{inputs.jsonInput}}}}
-                monitor_ids=${{inputs.ids}}
+                json_result='{"880987":{"name":"Optiq - Search Request Latency Increased by more than {{threshold}}% in Last 15 Minutes","id":880987,"state":{"groups":{"*":{"name":"*","status":"OK","last_triggered_ts":1749522427,"last_notified_ts":1740736267,"last_nodata_ts":null,"last_resolved_ts":1749523027}}},"matching_downtimes":[{"id":173654859,"active":true,"monitor_id":880987,"start":1740736185,"end":null,"scope":["*"],"groups":["None"]}]}}'
+                monitor_ids=(880987 872689 872632)
 
                 # Export all monitor to a state object
                 monitors_state=""
                 for monitor_id in "${monitor_ids[@]}"; do
+                    echo "monitor_id: $monitor_id"
                     state_object=$(echo "$json_result" | jq -c --arg monitor_id "$monitor_id" '.[$monitor_id] | {id: .id, name: .name, state: .state}')
                     monitors_state="${monitors_state}|${state_object}"
                 done
