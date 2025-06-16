@@ -49,5 +49,5 @@ jobs:
                     id=$(echo $monitor_state | jq .id)
                     echo "- name: $name, status: $status"
                     echo "-- id: $id"   >> $GITHUB_STEP_SUMMARY
-                # done
+                done
         
