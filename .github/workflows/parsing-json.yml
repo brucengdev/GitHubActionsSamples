@@ -64,4 +64,5 @@ jobs:
                   echo "Name: $name"
                   echo "ID: $id"
                   echo "Status: $status"
+                  echo "Name: $name, status: $status, id: $id" >>> $GITHUB_SUMMARY
                 done
