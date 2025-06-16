@@ -1,0 +1,54 @@
+name: Example with handling Json
+on:
+    workflow_dispatch:
+      inputs:
+        jsonInput:
+          description: 'JSON input'
+          required: true
+          default: '{"key1": "value1", "key2": "value2"}'
+        ids:
+          description: 'Ids'
+          required: true
+          default: '["id1", "id2", "id3"]'
+
+jobs:
+    prep-json:
+        outputs:
+            ddState: ${{ steps.parse_json.outputs.ddState }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Parse JSON input
+              id: parse_json
+              run: |
+                json_result=${{inputs.jsonInput}}}}
+                monitor_ids=${{inputs.ids}}
+
+                info "$json_result"
+
+                # Export all monitor to a state object
+                monitors_state=""
+                for monitor_id in "${monitor_ids[@]}"; do
+                    state_object=$(echo "$json_result" | jq -c --arg monitor_id "$monitor_id" '.[$monitor_id] | {id: .id, name: .name, state: .state}')
+                    monitors_state="${monitors_state}|${state_object}"
+                done
+                monitors_state=${monitors_state:1}  # Remove leading '|'
+                
+                echo "ddState=[${monitors_state}]" >> $GITHUB_OUTPUT
+
+    print-state:
+        needs: prep-json
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print state
+              run: |
+                monitor_states="${{needs.prep-json.outputs.ddState}}"
+                IFS='|' read -ra parsed <<< "$monitor_states"
+                for monitor_state in "${parsed[@]}";do
+                    status=$(echo $monitor_state | tr "*" "f" | jq .state.groups.f.status)
+                    name=$(echo $monitor_state | jq .name)
+                    id=$(echo $monitor_state | jq .id)
+                    echo "- name: $name, status: $status"
+                    echo "-- id: $id"   >> $GITHUB_STEP_SUMMARY
+                    
+                done
+        
