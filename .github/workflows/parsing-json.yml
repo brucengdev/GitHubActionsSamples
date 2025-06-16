@@ -44,7 +44,7 @@ jobs:
                 # monitors_state=${monitors_state%?}  # Remove trailing ']'
                 # echo "Removed brackets:"
                 # echo $monitors_state
-                for monitor_state in ${monitors_state//|/ }; do
+                for monitor_state in ${monitors_state[@]}; do
                     echo "Monitor state: $monitor_state"
                 done
                 # IFS='|' read -ra parsed <<< "$monitor_states"
