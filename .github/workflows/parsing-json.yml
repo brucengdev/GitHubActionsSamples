@@ -40,13 +40,14 @@ jobs:
                 echo "Input:"
                 echo $monitor_states
                 echo "Parsing..."
-                # IFS='|' read -ra parsed <<< "$monitor_states"
-                # for monitor_state in "${parsed[@]}";do
-                #     status=$(echo $monitor_state | tr "*" "f" | jq .state.groups.f.status)
-                #     name=$(echo $monitor_state | jq .name)
-                #     id=$(echo $monitor_state | jq .id)
-                #     echo "- name: $name, status: $status"
-                #     echo "-- id: $id"   >> $GITHUB_STEP_SUMMARY
-                    
+                monitors_state=${monitors_state:1}  # Remove leading '['
+                monitors_state=${monitors_state::-1}  # Remove trailing ']'
+                IFS='|' read -ra parsed <<< "$monitor_states"
+                for monitor_state in "${parsed[@]}";do
+                    status=$(echo $monitor_state | tr "*" "f" | jq .state.groups.f.status)
+                    name=$(echo $monitor_state | jq .name)
+                    id=$(echo $monitor_state | jq .id)
+                    echo "- name: $name, status: $status"
+                    echo "-- id: $id"   >> $GITHUB_STEP_SUMMARY
                 # done
         
