@@ -25,6 +25,8 @@ jobs:
                 done
                 monitors_state=${monitors_state:1}  # Remove leading '|'
                 
+                echo "output:"
+                echo $monitors_state
                 echo "ddState=[${monitors_state}]" >> $GITHUB_OUTPUT
 
     print-state:
