@@ -23,8 +23,6 @@ jobs:
                 json_result=${{inputs.jsonInput}}}}
                 monitor_ids=${{inputs.ids}}
 
-                info "$json_result"
-
                 # Export all monitor to a state object
                 monitors_state=""
                 for monitor_id in "${monitor_ids[@]}"; do
