@@ -2,13 +2,19 @@ on:
     workflow_dispatch:
     push:
 jobs:
-    print-event-context:
-        name: Print the event triggering this workflow
+    notify-wip-commit:
+        name: Run this job if commit message contains wip
+        if: contains(github.event.head_commit.message, 'wip')
         runs-on: ubuntu-latest
         steps:
-            - env:
-                EVENT_CONTEXT: ${{ toJson(github.event) }}
-              run: |
-                echo "The event context is: $EVENT_CONTEXT"
+            - run: |
+                echo "The lastest commit is wip"
+    notify-non-wip-commit:
+        name: Run this job if commit message does not contain wip
+        if: !contains(github.event.head_commit.message, 'wip')
+        runs-on: ubuntu-latest
+        steps:
+            - run: |
+                echo "The lastest commit is not wip"
 
   
