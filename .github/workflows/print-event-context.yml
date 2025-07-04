@@ -1,0 +1,14 @@
+on:
+    workflow_dispatch:
+    push:
+jobs:
+    print-event-context:
+        name: Print the event triggering this workflow
+        runs-on: ubuntu-latest
+        steps:
+            - env:
+                EVENT_CONTEXT: ${{ toJson(github.event) }}
+              run: |
+                echo "The event context is: $EVENT_CONTEXT"
+
+  
